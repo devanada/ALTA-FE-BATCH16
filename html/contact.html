@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/contact.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+
+      html {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      body {
+        margin: 0;
+        overflow: auto;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      a,
+      p {
+        color: #19345e !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="height: 100%; width: 100%">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
+        <div class="container-fluid">
+          <img
+            class="navbar-brand"
+            style="height: 4rem"
+            src="assets/images/logo-ALTA@2x.png"
+            alt=""
+          />
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="experience.html">Experience</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active fw-bold"
+                  style="color: #f47522 !important"
+                  aria-current="page"
+                  href="contact.html"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="row" style="height: 100%; width: 100%">
+        <div class="col-5 con-contact-left"></div>
+        <div class="col-7 con-contact-right">
+          <p>Contact Us</p>
+          <form>
+            <div class="mb-3">
+              <label for="formFullName" class="form-label"
+                >Full Name <span style="color: red">*</span>
+              </label>
+              <input
+                class="form-control"
+                id="formFullName"
+                placeholder="Full Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formEmail" class="form-label"
+                >Email <span style="color: red">*</span>
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="formEmail"
+                placeholder="example@alterra.id"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formPhone" class="form-label"
+                >Phone Number <span style="color: red">*</span>
+              </label>
+              <input
+                type="tel"
+                class="form-control"
+                id="formPhone"
+                placeholder="085554447900"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formPhone" class="form-label">Role </label>
+              <select class="form-select" aria-label="Select Role">
+                <option selected disabled>Selected</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="formMessage" class="form-label">Message</label>
+              <textarea
+                class="form-control"
+                id="formMessage"
+                rows="4"
+              ></textarea>
+            </div>
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary alta-orange">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+.con-contact-left {
+  background-image: linear-gradient(
+      rgba(25, 52, 94, 0.5),
+      rgba(25, 52, 94, 0.5)
+    ),
+    url("/html/assets/images/charles-rRWiVQzLm7k-unsplash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+}
+
+.con-contact-right {
+  background-color: white;
+  padding: 2rem 6rem;
+  height: 100%;
+}
+
+.alta-orange {
+  background-color: #f47522 !important;
+  border-color: #f47522 !important;
+  border-radius: 0.93rem !important;
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .con-contact-left {
+    display: none;
+  }
+
+  .col-7 {
+    width: 100% !important;
+  }
+}

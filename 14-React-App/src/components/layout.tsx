@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 
-import Navbar from "./navbar";
-import Footer from "./footer";
+import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 interface Props {
   children: ReactNode;
@@ -16,6 +17,7 @@ const Layout = (props: Readonly<Props>) => {
       <div className="container grow mx-auto py-4 px-8 flex flex-col">
         {children}
       </div>
+      <Toaster />
       <Footer />
     </div>
   );

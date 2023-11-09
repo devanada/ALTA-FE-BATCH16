@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 
 import BookCard from "@/components/book-card";
 import Layout from "@/components/layout";
+import { useToast } from "@/components/ui/use-toast";
 
 import { getBooks, Book } from "@/utils/apis/books";
 
 const Index = () => {
+  const { toast } = useToast();
+
   const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
@@ -16,8 +19,12 @@ const Index = () => {
     try {
       const result = await getBooks();
       setBooks(result.payload.datas);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast({
+        title: "Oops! Something went wrong.",
+        description: error.toString(),
+        variant: "destructive",
+      });
     }
   }
 

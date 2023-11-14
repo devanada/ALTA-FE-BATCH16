@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Layout from "@/components/layout";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const DetailBook = () => {
   const { toast } = useToast();
+  const params = useParams();
 
   const [book, setBook] = useState<Book>();
 
@@ -17,8 +19,7 @@ const DetailBook = () => {
 
   async function fetchData() {
     try {
-      // TODO: Change getDetailBook parameter, use from path param
-      const result = await getDetailBook("1");
+      const result = await getDetailBook(params.id_book as string);
       setBook(result.payload);
     } catch (error: any) {
       toast({

@@ -1,12 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { FormEvent, useState } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/layout";
+
 import { registerAccount } from "@/utils/apis/auth";
 
 const Register = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   const [fullName, setFullName] = useState("");
@@ -31,6 +34,7 @@ const Register = () => {
       toast({
         description: result.message,
       });
+      navigate("/login");
     } catch (error: any) {
       toast({
         title: "Oops! Something went wrong.",

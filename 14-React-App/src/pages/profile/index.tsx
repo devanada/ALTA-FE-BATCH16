@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
+import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout";
 import { useToast } from "@/components/ui/use-toast";
+
 import { Profile, getProfile } from "@/utils/apis/users";
-import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const { toast } = useToast();
@@ -41,7 +43,9 @@ const Index = () => {
         <p>{profile?.email}</p>
         <p>{profile?.address}</p>
         <p>{profile?.phone_number}</p>
-        <Button>Edit Profile</Button>
+        <Button asChild>
+          <Link to="/edit-profile">Edit Profile</Link>
+        </Button>
       </div>
     </Layout>
   );

@@ -9,10 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useTheme from "@/utils/hooks/useTheme";
 
 const Navbar = () => {
+  const [toggleTheme] = useTheme();
+
   return (
-    <header className="w-full sticky top-0 bg-white/90 z-50">
+    <header className="w-full sticky top-0 bg-white/90 dark:bg-black/90 z-50">
       <nav className="mx-auto flex container items-center justify-between p-6 ">
         <Link className="text-xl tracking-widest" to="/">
           Library App
@@ -38,6 +41,9 @@ const Navbar = () => {
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link to="/register">Register</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => toggleTheme()}>
+              Change Theme
             </DropdownMenuItem>
             <DropdownMenuItem>Logout</DropdownMenuItem>
           </DropdownMenuContent>

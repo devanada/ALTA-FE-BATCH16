@@ -1,5 +1,10 @@
-import { registerAccount } from "./api";
-import { BodyRegister, BodyLogin } from "./types";
+import { loginAccount, registerAccount } from "./api";
+import {
+  loginSchema,
+  registerSchema,
+  LoginSchema,
+  RegisterSchema,
+} from "./types";
 
-export { registerAccount };
-export type { BodyRegister, BodyLogin };
+export { loginAccount, registerAccount, loginSchema, registerSchema };
+export type { LoginSchema, RegisterSchema };

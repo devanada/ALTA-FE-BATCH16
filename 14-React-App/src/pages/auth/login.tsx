@@ -1,24 +1,28 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { FormEvent, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
 
+import { CustomFormField } from "@/components/custom-formfield";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import Layout from "@/components/layout";
 import { useToast } from "@/components/ui/use-toast";
 
-import { loginAccount } from "@/utils/apis/auth/api";
+import { loginAccount, loginSchema, LoginSchema } from "@/utils/apis/auth";
 
 const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    document.title = `Count: ${count}`;
-  }, [count]);
+  const form = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   /*
    * useEffect(() => {}, [])
@@ -38,15 +42,9 @@ const Login = () => {
    * side effect akan dijalankan setiap waktu (mirip dengan penulisan useEffect tanpa scope), namun dia akan berhenti/unsubscribe ketika kita meninggalkan/berpindah halaman, dengan harap agar performa dari web/aplikasi tetap terjaga karena tidak ada proses berjalan dibalik layar. Contoh implementasi di real scenario adalah OTP (ada perhitungan mundur yang dijalankan setiap detik), ataupun status online. useEffect ini sendiri mirip dengan componentDidMount + componentDidUpdate + componentWillUnmount
    */
 
-  async function handleLogin(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmitLogin(data: LoginSchema) {
     try {
-      const body = {
-        email,
-        password,
-      };
-
-      const result = await loginAccount(body);
+      const result = await loginAccount(data);
       localStorage.setItem("token", result.payload.token);
       toast({
         description: result.message,
@@ -63,28 +61,52 @@ const Login = () => {
 
   return (
     <Layout>
-      <form className="flex flex-col gap-3" onSubmit={(e) => handleLogin(e)}>
-        <Input
-          placeholder="mail@domain.com"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit">Login</Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => setCount(count + 1)}
+      <Form {...form}>
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={form.handleSubmit(onSubmitLogin)}
         >
-          Increment Count
-        </Button>
-      </form>
+          <CustomFormField control={form.control} name="email" label="Email">
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="name@mail.com"
+                type="email"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <CustomFormField
+            control={form.control}
+            name="password"
+            label="Password"
+          >
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="Password"
+                type="password"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            aria-disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
+              </>
+            ) : (
+              "Login"
+            )}
+          </Button>
+        </form>
+      </Form>
     </Layout>
   );
 };

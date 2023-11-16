@@ -1,40 +1,44 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { FormEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Loader2 } from "lucide-react";
 
-import { useToast } from "@/components/ui/use-toast";
+import { CustomFormField } from "@/components/custom-formfield";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import Layout from "@/components/layout";
+import { useToast } from "@/components/ui/use-toast";
 
-import { registerAccount } from "@/utils/apis/auth";
+import {
+  registerAccount,
+  registerSchema,
+  RegisterSchema,
+} from "@/utils/apis/auth";
 
 const Register = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const form = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      full_name: "",
+      email: "",
+      password: "",
+      repassword: "",
+      address: "",
+      phone_number: "",
+    },
+  });
 
-  async function onSubmitRegister(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmitRegister(data: RegisterSchema) {
     try {
-      const body = {
-        full_name: fullName,
-        email,
-        password,
-        role: "user",
-        address,
-        phone_number: phoneNumber,
-      };
-
-      const result = await registerAccount(body);
+      const result = await registerAccount(data);
       toast({
         description: result.message,
       });
-      navigate("/login");
+      // navigate("/login");
     } catch (error: any) {
       toast({
         title: "Oops! Something went wrong.",
@@ -46,39 +50,110 @@ const Register = () => {
 
   return (
     <Layout>
-      <form
-        className="flex flex-col gap-3"
-        onSubmit={(e) => onSubmitRegister(e)}
-      >
-        <Input
-          placeholder="Full Name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-        />
-        <Input
-          placeholder="Email"
-          value={email}
-          type="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          placeholder="Password"
-          value={password}
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Input
-          placeholder="Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
-        <Input
-          placeholder="Phone Number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
-        <Button type="submit">Register</Button>
-      </form>
+      <Form {...form}>
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={form.handleSubmit(onSubmitRegister)}
+        >
+          <CustomFormField
+            control={form.control}
+            name="full_name"
+            label="Full Name"
+          >
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="John Doe"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <CustomFormField control={form.control} name="email" label="Email">
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="name@mail.com"
+                type="email"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <CustomFormField
+            control={form.control}
+            name="password"
+            label="Password"
+          >
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="Password"
+                type="password"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <CustomFormField
+            control={form.control}
+            name="repassword"
+            label="Retype Password"
+          >
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="Retype Password"
+                type="password"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <CustomFormField
+            control={form.control}
+            name="address"
+            label="Address"
+          >
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="Address"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <CustomFormField
+            control={form.control}
+            name="phone_number"
+            label="Phone Number"
+          >
+            {(field) => (
+              <Input
+                {...field}
+                placeholder="Phone Number"
+                type="tel"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              />
+            )}
+          </CustomFormField>
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            aria-disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
+              </>
+            ) : (
+              "Register"
+            )}
+          </Button>
+        </form>
+      </Form>
     </Layout>
   );
 };

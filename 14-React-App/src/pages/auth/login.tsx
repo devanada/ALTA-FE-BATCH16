@@ -11,8 +11,10 @@ import Layout from "@/components/layout";
 import { useToast } from "@/components/ui/use-toast";
 
 import { loginAccount, loginSchema, LoginSchema } from "@/utils/apis/auth";
+import { useToken } from "@/utils/contexts/token";
 
 const Login = () => {
+  const { changeToken } = useToken();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -45,7 +47,7 @@ const Login = () => {
   async function onSubmitLogin(data: LoginSchema) {
     try {
       const result = await loginAccount(data);
-      localStorage.setItem("token", result.payload.token);
+      changeToken(result.payload.token);
       toast({
         description: result.message,
       });

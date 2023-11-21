@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 
@@ -17,7 +16,6 @@ import {
 } from "@/utils/apis/auth";
 
 const Register = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   const form = useForm<RegisterSchema>({
@@ -38,7 +36,6 @@ const Register = () => {
       toast({
         description: result.message,
       });
-      // navigate("/login");
     } catch (error: any) {
       toast({
         title: "Oops! Something went wrong.",

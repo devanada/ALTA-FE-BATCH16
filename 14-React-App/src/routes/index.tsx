@@ -8,6 +8,7 @@ import DetailBookPage from "@/pages/books/detail";
 import ProfilePage from "@/pages/profile";
 import EditProfilePage from "@/pages/profile/edit-profile";
 import HistoryBorrowPage from "@/pages/profile/history-borrow";
+import Cart from "@/pages/books/cart";
 
 export default function Router() {
   const router = createBrowserRouter([
@@ -41,6 +42,10 @@ export default function Router() {
         {
           path: "/history-borrow",
           element: <HistoryBorrowPage />,
+        },
+        {
+          path: "cart",
+          element: <Cart />,
         },
         {
           path: "*",

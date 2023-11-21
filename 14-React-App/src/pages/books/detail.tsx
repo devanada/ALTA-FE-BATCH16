@@ -1,17 +1,28 @@
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 
-import Layout from "@/components/layout";
 import { useToast } from "@/components/ui/use-toast";
-import { Book, getDetailBook } from "@/utils/apis/books";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import Layout from "@/components/layout";
+
+import { Book, getDetailBook } from "@/utils/apis/books";
+import useCartStore from "@/utils/state";
 
 const DetailBook = () => {
+  const { cart, addBook } = useCartStore();
   const { toast } = useToast();
   const params = useParams();
 
   const [book, setBook] = useState<Book>();
+
+  const isInCart = useMemo(() => {
+    const checkCart = cart.find((item) => item.id === +params.id_book!);
+
+    if (checkCart) return true;
+
+    return false;
+  }, [cart]);
 
   useEffect(() => {
     fetchData();
@@ -30,6 +41,13 @@ const DetailBook = () => {
     }
   }
 
+  function onClickBorrow() {
+    toast({
+      description: "Book has been added to cart.",
+    });
+    addBook(book!);
+  }
+
   return (
     <Layout>
       <div className="flex flex-col md:flex-row w-full h-full py-6 px-3 gap-5 items-center">
@@ -46,7 +64,13 @@ const DetailBook = () => {
           </div>
           <Separator />
           <p>{book?.description}</p>
-          <Button>Borrow</Button>
+          <Button
+            onClick={() => onClickBorrow()}
+            disabled={isInCart}
+            aria-disabled={isInCart}
+          >
+            {isInCart ? "In Cart" : "Borrow"}
+          </Button>
         </div>
       </div>
     </Layout>

@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { ShoppingBasketIcon } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -17,6 +18,7 @@ import { useToken } from "@/utils/contexts/token";
 const Navbar = () => {
   const { token, user, changeToken } = useToken();
   const [toggleTheme] = useTheme();
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   function handleLogout() {
@@ -32,46 +34,51 @@ const Navbar = () => {
         <Link className="text-xl tracking-widest" to="/">
           Library App
         </Link>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Avatar>
-              <AvatarImage src={user.profile_picture} alt={user.full_name} />
-              <AvatarFallback>LA</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-44" align="end">
-            {token && (
-              <>
-                <DropdownMenuLabel>Hi! {user.full_name}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/history-borrow">History Borrow</Link>
-                </DropdownMenuItem>
-              </>
-            )}
-            <DropdownMenuItem onClick={() => toggleTheme()}>
-              Change Theme
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            {token ? (
-              <DropdownMenuItem onClick={() => handleLogout()}>
-                Logout
+        <div className="flex gap-4 items-center justify-end">
+          {token && user.role === "user" && (
+            <ShoppingBasketIcon onClick={() => navigate("/cart")} />
+          )}
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage src={user.profile_picture} alt={user.full_name} />
+                <AvatarFallback>LA</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-44" align="end">
+              {token && (
+                <>
+                  <DropdownMenuLabel>Hi! {user.full_name}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/history-borrow">History Borrow</Link>
+                  </DropdownMenuItem>
+                </>
+              )}
+              <DropdownMenuItem onClick={() => toggleTheme()}>
+                Change Theme
               </DropdownMenuItem>
-            ) : (
-              <>
-                <DropdownMenuItem asChild>
-                  <Link to="/login">Login</Link>
+              <DropdownMenuSeparator />
+              {token ? (
+                <DropdownMenuItem onClick={() => handleLogout()}>
+                  Logout
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/register">Register</Link>
-                </DropdownMenuItem>
-              </>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+              ) : (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link to="/login">Login</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/register">Register</Link>
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </nav>
     </header>
   );

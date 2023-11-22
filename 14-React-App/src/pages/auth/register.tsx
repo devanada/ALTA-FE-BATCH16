@@ -49,6 +49,7 @@ const Register = () => {
     <Layout>
       <Form {...form}>
         <form
+          aria-label="form-register"
           className="flex flex-col gap-3"
           onSubmit={form.handleSubmit(onSubmitRegister)}
         >
@@ -61,6 +62,7 @@ const Register = () => {
               <Input
                 {...field}
                 placeholder="John Doe"
+                aria-label="input-full-name"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -72,6 +74,7 @@ const Register = () => {
                 {...field}
                 placeholder="name@mail.com"
                 type="email"
+                aria-label="input-email"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -87,6 +90,7 @@ const Register = () => {
                 {...field}
                 placeholder="Password"
                 type="password"
+                aria-label="input-password"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -102,6 +106,7 @@ const Register = () => {
                 {...field}
                 placeholder="Retype Password"
                 type="password"
+                aria-label="input-repassword"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -116,6 +121,7 @@ const Register = () => {
               <Input
                 {...field}
                 placeholder="Address"
+                aria-label="input-address"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -131,6 +137,7 @@ const Register = () => {
                 {...field}
                 placeholder="Phone Number"
                 type="tel"
+                aria-label="input-phone-number"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -138,6 +145,7 @@ const Register = () => {
           </CustomFormField>
           <Button
             type="submit"
+            aria-label="btn-submit"
             disabled={form.formState.isSubmitting}
             aria-disabled={form.formState.isSubmitting}
           >

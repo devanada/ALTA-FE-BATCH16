@@ -65,6 +65,7 @@ const Login = () => {
     <Layout>
       <Form {...form}>
         <form
+          aria-label="form-login"
           className="flex flex-col gap-3"
           onSubmit={form.handleSubmit(onSubmitLogin)}
         >
@@ -74,6 +75,7 @@ const Login = () => {
                 {...field}
                 placeholder="name@mail.com"
                 type="email"
+                aria-label="input-email"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -89,6 +91,7 @@ const Login = () => {
                 {...field}
                 placeholder="Password"
                 type="password"
+                aria-label="input-password"
                 disabled={form.formState.isSubmitting}
                 aria-disabled={form.formState.isSubmitting}
               />
@@ -96,6 +99,7 @@ const Login = () => {
           </CustomFormField>
           <Button
             type="submit"
+            aria-label="btn-submit"
             disabled={form.formState.isSubmitting}
             aria-disabled={form.formState.isSubmitting}
           >
